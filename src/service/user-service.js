@@ -1,12 +1,12 @@
-import { validate } from "../validation/validation"
-import { registerUserValidation } from "../validation/user-validation"
-import { PrismaClient } from "../application/database"
-import { ResponseError } from "../error/response-error"
+import { validate } from "../validation/validation.js"
+import { registerUserValidation } from "../validation/user-validation.js"
+import { prismaClient } from "../application/database.js"
+import { ResponseError } from "../error/response-error.js"
 
 const register = async (request) => {
     const user = validate(registerUserValidation, register)
 
-    const countUser = await PrismaClient.user.count({
+    const countUser = await prismaClient.user.count({
         where: {
             username: user.username
         }

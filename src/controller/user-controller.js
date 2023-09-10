@@ -1,4 +1,4 @@
-import userService from "../service/user-service"
+import userService from "../service/user-service.js"
 
 const register = (req, res, next) => {
     try {
