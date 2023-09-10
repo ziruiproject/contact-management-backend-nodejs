@@ -15,19 +15,33 @@ model User {
   password String    @db.VarChar(100)
   name     String    @db.VarChar(100)
   token    String?   @db.VarChar(100)
-  Contact  Contact[]
+  contacts Contact[]
 
   @@map("users")
 }
 
 model Contact {
-  id         Int     @id @default(autoincrement())
-  first_name String  @db.VarChar(100)
-  last_name  String? @db.VarChar(100)
-  email      String? @db.VarChar(100)
-  phone      String? @db.VarChar(20)
-  username   String  @db.VarChar(100)
-  user       User    @relation(fields: [username], references: [id])
+  id         Int       @id @default(autoincrement())
+  first_name String    @db.VarChar(100)
+  last_name  String?   @db.VarChar(100)
+  email      String?   @db.VarChar(100)
+  phone      String?   @db.VarChar(20)
+  username   String    @db.VarChar(100)
+  user       User      @relation(fields: [username], references: [id])
+  addresses  Address[]
 
   @@map("contacts")
+}
+
+model Address {
+  id          Int     @id @default(autoincrement())
+  street      String? @db.VarChar(225)
+  city        String? @db.VarChar(100)
+  province    String? @db.VarChar(100)
+  country     String  @db.VarChar(100)
+  postal_code Int
+  contact     Contact @relation(fields: [contact_id], references: [id])
+  contact_id  Int
+
+  @@map("addresses")
 }
